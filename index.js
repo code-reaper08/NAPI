@@ -10,8 +10,10 @@ app.get('/',(req,res) => {
 app.get('/:name',(req,res) => {
     try{
         DATA.laureates.forEach(laureate => {
-            const nameof = laureate.firstname;
-            if (req.params.name == nameof) {
+            const fname = laureate.firstname;
+            const sname = laureate.surname;
+            const fullname = fname.concat(sname); 
+            if (req.params.name == fullname) {
                 res.status(200).send(laureate)
                 console.log("Can do shit")
             }
