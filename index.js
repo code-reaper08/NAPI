@@ -12,8 +12,9 @@ app.get('/:name',(req,res) => {
         DATA.laureates.forEach(laureate => {
             const fname = laureate.firstname;
             const sname = laureate.surname;
-            const fullname = fname.concat(sname); 
-            if (req.params.name == fullname) {
+            const fullname = fname.concat(sname).toUpperCase();
+            const usrqryname = req.params.name.toUpperCase();
+            if (usrqryname == fullname) {
                 res.status(200).send(laureate)
                 console.log("Can do shit")
             }
