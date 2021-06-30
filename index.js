@@ -29,13 +29,18 @@ app.get("/:name", (req, res) => {
 // get all data based on born country code
 app.get("/borncountry/:CC",(req,res) => {
   try{
-    const arr = []
+    const obj = {}
+    const arr =[]
     DATA.laureates.forEach((laureate) => {
       const CC = laureate.bornCountryCode;
       const CCqry = req.params.CC;
       if(CCqry == CC){
         arr.push(laureate);
-        res.json(arr)
+        obj.push(arr);
+        console.log(arr);
+        // res.json(arr);
+        return true;
+        
       }
     });
   }catch(err){
