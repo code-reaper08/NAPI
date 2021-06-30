@@ -29,16 +29,17 @@ app.get("/:name", (req, res) => {
 // get all data based on born country code
 app.get("/borncountry/:CC",(req,res) => {
   try{
-   const larray = []
+    const arr = []
     DATA.laureates.forEach((laureate) => {
       const CC = laureate.bornCountryCode;
-      if (req.params.CC == CC) {
-        larray.push(laureate);
-        console.log(larray);      }
-      
+      const CCqry = req.params.CC;
+      if(CCqry == CC){
+        arr.push(laureate);
+        res.json(arr)
+      }
     });
   }catch(err){
-
+    res.status(404).json({message : err.message});
   }
 })
 
