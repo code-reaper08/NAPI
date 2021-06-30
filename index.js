@@ -69,7 +69,7 @@ app.get("/bornat/:CC",(req,res) => {
     const CCqry = req.params.CC;
     var values =Object.values(DATA.laureates);
 // //select
-const result = alasql(`SELECT * FROM ? WHERE bornCountryCode = ${CCqry} `, [values]);
+const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? ", [values,CCqry]);
 // const findAllServers = ( id_server, values ) => Object.values( values ).filter( values => values.bornCountryCode === CCqry );
 // const all_servers_2343262364124 = findAllServers ( 'CCqry', values );
 // will log an array
