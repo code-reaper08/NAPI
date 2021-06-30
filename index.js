@@ -4,21 +4,21 @@ const app = express();
 const DATA = require("./DATA.json");
 // const DATA2 = JSON.parse(DATA);
 const records = {
-  "15432213213564": {
-      "server": "1234756783612",
-      "time": "infinite",
-      "reason": "not provided"
+  15432213213564: {
+    server: "1234756783612",
+    time: "infinite",
+    reason: "not provided",
   },
-  "4567863243123": {
-      "server": "2343262364124",
-      "time": "infinite",
-      "reason": "not provided"
+  4567863243123: {
+    server: "2343262364124",
+    time: "infinite",
+    reason: "not provided",
   },
-  "5763542345345": {
-      "server": "2343262364124",
-      "time": "20",
-      "reason": "test"
-  }
+  5763542345345: {
+    server: "2343262364124",
+    time: "20",
+    reason: "test",
+  },
 };
 let PORT = process.env.PORT || 3000;
 
@@ -46,50 +46,57 @@ app.get("/name/:name", (req, res) => {
 });
 
 // get all data based on born country code
-app.get("/bornat/:CC",(req,res) => {
-  try{
+app.get("/bornat/:CC", (req, res) => {
+  try {
     const CCqry = req.params.CC;
-    var values =Object.values(DATA.laureates);
-// //select
-const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? ", [values,CCqry]);
-// const findAllServers = ( id_server, values ) => Object.values( values ).filter( values => values.bornCountryCode === CCqry );
-// const all_servers_2343262364124 = findAllServers ( 'CCqry', values );
-// will log an array
-// console.log( all_servers_2343262364124 );
-res.status(200).json(result);
-  }catch(err){
-    res.json({message : err.message});
+    var values = Object.values(DATA.laureates);
+    // //select
+    const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? ", [
+      values,
+      CCqry,
+    ]);
+    // const findAllServers = ( id_server, values ) => Object.values( values ).filter( values => values.bornCountryCode === CCqry );
+    // const all_servers_2343262364124 = findAllServers ( 'CCqry', values );
+    // will log an array
+    // console.log( all_servers_2343262364124 );
+    res.status(200).json(result);
+  } catch (err) {
+    res.json({ message: err.message });
   }
-})
+});
 
 // get all data based on category
-app.get("/category/:CAT",(req,res) => {
-  try{
+app.get("/category/:CAT", (req, res) => {
+  try {
     // const arr = []
     const catqry = req.params.CAT;
-    var values =Object.values(DATA.laureates);
-    values.forEach(element => {
+    var values = Object.values(DATA.laureates);
+    values.forEach((element) => {
       const catt = element.prizes[0].category;
-      console.log(catt)
-      catt.forEach(el => {
+      console.log(catt);
+      catt.forEach((el) => {
         const categorys = el.category;
         // if(catqry == categorys){
-          // arr.push(el);
-          // console.log(arr);
-          const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
-          // console.log(result);
-          res.status(200).json(result);
-          return false;
-          // res.json(arr)
+        // arr.push(el);
+        // console.log(arr);
+        const result = alasql("SELECT * FROM ? WHERE ? = ?", [
+          values,
+          categorys,
+          catqry,
+        ]);
+        // console.log(result);
+        res.status(200).json(result);
+        return false;
+        // res.json(arr)
         // }
         // const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
         // console.log(result);
-      })
-    })
-  }catch(err){
-    res.status(404).json({message : err.message});
+      });
+    });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
   }
-})
+});
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
