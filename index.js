@@ -1,6 +1,25 @@
+const alasql = require("alasql");
 const express = require("express");
 const app = express();
 const DATA = require("./DATA.json");
+// const DATA2 = JSON.parse(DATA);
+const records = {
+  "15432213213564": {
+      "server": "1234756783612",
+      "time": "infinite",
+      "reason": "not provided"
+  },
+  "4567863243123": {
+      "server": "2343262364124",
+      "time": "infinite",
+      "reason": "not provided"
+  },
+  "5763542345345": {
+      "server": "2343262364124",
+      "time": "20",
+      "reason": "test"
+  }
+};
 let PORT = process.env.PORT || 3000;
 
 // Home route
@@ -9,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // get data with name
-app.get("/:name", (req, res) => {
+app.get("/name/:name", (req, res) => {
   try {
     DATA.laureates.forEach((laureate) => {
       const fname = laureate.firstname;
@@ -27,24 +46,36 @@ app.get("/:name", (req, res) => {
 });
 
 // get all data based on born country code
-app.get("/borncountry/:CC",(req,res) => {
+// app.get("/borncountry/:CC",(req,res) => {
+//   try{
+//     const arr =[];
+//     DATA.laureates.forEach((laureate) => {
+//       const CC = laureate.bornCountryCode;
+//       const CCqry = req.params.CC;
+//       if(CCqry == CC){
+//          arr.push(laureate);
+//         console.log(arr);
+//          res.json(arr);
+//       }
+//     });
+//   }catch(err){
+//     res.status(404).json({message : err.message});
+//   }
+// })
+
+app.get("/bornat/:CC",(req,res) => {
   try{
-    const obj = {}
-    const arr =[]
-    DATA.laureates.forEach((laureate) => {
-      const CC = laureate.bornCountryCode;
-      const CCqry = req.params.CC;
-      if(CCqry == CC){
-        arr.push(laureate);
-        obj.push(arr);
-        console.log(arr);
-        // res.json(arr);
-        return true;
-        
-      }
-    });
+    // const newdata = JSON.parse(DATA.laureates);
+    const CCqry = req.params.CC;
+    var values =Object.values(DATA.laureates);
+// //select
+console.log(alasql("SELECT * FROM ? WHERE bornCountryCode = \"IN\" ", [values]));
+// const findAllServers = ( id_server, values ) => Object.values( values ).filter( values => values.bornCountryCode === CCqry );
+// const all_servers_2343262364124 = findAllServers ( 'CCqry', values );
+// will log an array
+// console.log( all_servers_2343262364124 );
   }catch(err){
-    res.status(404).json({message : err.message});
+    res.json({message : err.message});
   }
 })
 
