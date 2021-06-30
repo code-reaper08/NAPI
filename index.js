@@ -62,6 +62,23 @@ res.status(200).json(result);
   }
 })
 
+// get all data based on category
+app.get("/category/:CAT",(req,res) => {
+  try{
+    const catqry = req.params.CAT;
+    var values =Object.values(DATA.laureates);
+    values.forEach(element => {
+      const catt = element.prizes.forEach(el => {
+        const categorys = el.category;
+        const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
+        console.log(result);
+      })
+    })
+    // const result = alasql("SELECT * FROM ? WHERE")
+  }catch(err){
+
+  }
+})
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
