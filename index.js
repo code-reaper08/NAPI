@@ -46,26 +46,8 @@ app.get("/name/:name", (req, res) => {
 });
 
 // get all data based on born country code
-// app.get("/borncountry/:CC",(req,res) => {
-//   try{
-//     const arr =[];
-//     DATA.laureates.forEach((laureate) => {
-//       const CC = laureate.bornCountryCode;
-//       const CCqry = req.params.CC;
-//       if(CCqry == CC){
-//          arr.push(laureate);
-//         console.log(arr);
-//          res.json(arr);
-//       }
-//     });
-//   }catch(err){
-//     res.status(404).json({message : err.message});
-//   }
-// })
-
 app.get("/bornat/:CC",(req,res) => {
   try{
-    // const newdata = JSON.parse(DATA.laureates);
     const CCqry = req.params.CC;
     var values =Object.values(DATA.laureates);
 // //select
