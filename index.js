@@ -26,6 +26,22 @@ app.get("/:name", (req, res) => {
   }
 });
 
+// get all data based on born country code
+app.get("/borncountry/:CC",(req,res) => {
+  try{
+   const larray = []
+    DATA.laureates.forEach((laureate) => {
+      const CC = laureate.bornCountryCode;
+      if (req.params.CC == CC) {
+        larray.push(laureate);
+        console.log(larray);      }
+      
+    });
+  }catch(err){
+
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
