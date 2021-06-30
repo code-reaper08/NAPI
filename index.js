@@ -65,18 +65,29 @@ res.status(200).json(result);
 // get all data based on category
 app.get("/category/:CAT",(req,res) => {
   try{
+    // const arr = []
     const catqry = req.params.CAT;
     var values =Object.values(DATA.laureates);
     values.forEach(element => {
-      const catt = element.prizes.forEach(el => {
+      const catt = element.prizes[0].category;
+      console.log(catt)
+      catt.forEach(el => {
         const categorys = el.category;
-        const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
-        console.log(result);
+        // if(catqry == categorys){
+          // arr.push(el);
+          // console.log(arr);
+          const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
+          // console.log(result);
+          res.status(200).json(result);
+          return false;
+          // res.json(arr)
+        // }
+        // const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
+        // console.log(result);
       })
     })
-    // const result = alasql("SELECT * FROM ? WHERE")
   }catch(err){
-
+    res.status(404).json({message : err.message});
   }
 })
 app.listen(PORT, () => {
