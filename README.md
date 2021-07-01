@@ -14,7 +14,8 @@ Users can access the list of routes mentioned below to get JSON data.
 This route is the home route of the API. This route can be accessed by `https://nobelapi.herokuapp.com/`
 
     **_example :_**
-    ![SS](Image link "HomePage")
+    ![NAPI_Home_Route](https://user-images.githubusercontent.com/64256342/124149366-22539600-daae-11eb-96de-4cd7a2822387.png)
+
 
 + **NAME :**
 This route gives the Nobel laureates data based on their name.
