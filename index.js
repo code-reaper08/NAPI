@@ -19,7 +19,6 @@ app.get("/name/:name", (req, res) => {
       const usrqryname = req.params.name.toUpperCase();
       if (usrqryname == fullname) {
         res.status(200).send(laureate);
-        console.log("Can do shit");
       }
     });
   } catch (err) {
@@ -32,7 +31,6 @@ app.get("/bornat/:CC", (req, res) => {
   try {
     const CCqry = req.params.CC;
     var values = Object.values(DATA.laureates);
-    // //select
     const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? ", [
       values,
       CCqry,
