@@ -1,7 +1,7 @@
 {
-  "name": "nobel",
+  "name": "nobelapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple API, which fetches and queries the Nobel data.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
