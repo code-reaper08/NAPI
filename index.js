@@ -6,7 +6,7 @@ let PORT = process.env.PORT || 3000;
 
 // Home route
 app.get("/", (req, res) => {
-  res.send("HELLO I AM RUNNING....");
+  res.send("..HELLO I AM RUNNING..");
 });
 
 // get data with name
@@ -37,16 +37,23 @@ app.get("/bornat/:CC", (req, res) => {
       values,
       CCqry,
     ]);
-    // const findAllServers = ( id_server, values ) => Object.values( values ).filter( values => values.bornCountryCode === CCqry );
-    // const all_servers_2343262364124 = findAllServers ( 'CCqry', values );
-    // will log an array
-    // console.log( all_servers_2343262364124 );
     res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
 });
 
+// get all data based on died at country code
+app.get("/diedat/:DCC",(req,res) => {
+  try{
+   const DCCqry = req.params.DCC;
+   var values = Object.values(DATA.laureates);
+   const result = alasql("SELECT * FROM ? WHERE diedCountryCode = ? ",[values,DCCqry]);
+   res.status(200).json(result);
+  }catch(err){
+    res.status(400).json({message : err.message});
+  }
+})
 // get all data based on Gender
 app.get("/gender/:GEN", (req, res) => {
   try {
@@ -72,6 +79,18 @@ app.get("/gender/:GEN/:CC", (req,res) => {
     }
 })
 
+// get all data based on born cc and died cc
+app.get("/bornat/:BCC/diedat/:DCC",(req,res) => {
+  try{
+    BCCqry = req.params.BCC;
+    DCCqry = req.params.DCC;
+    values = Object.values(DATA.laureates);
+    const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? AND diedCountryCode = ?",[values,BCCqry,DCCqry]);
+    res.status(200).json(result);
+  }catch(err){
+    res.status(400).json({message : err.message});
+  }
+})
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
