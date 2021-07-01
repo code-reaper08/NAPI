@@ -6,7 +6,9 @@ let PORT = process.env.PORT || 3000;
 
 // Home route
 app.get("/", (req, res) => {
-  res.send("<h1>This is an API without a DATABASE, Please see <a href= \"https://www.github.com/code-reaper08/NAPI\">here</a> for more deatails of the routes to request</h1>");
+  res.send(
+    '<h1>This is an API without a DATABASE, Please see <a href= "https://www.github.com/code-reaper08/NAPI">here</a> for more deatails of the routes to request</h1>'
+  );
 });
 
 // get data with name
