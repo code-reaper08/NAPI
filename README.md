@@ -1,6 +1,8 @@
 # NAPI
 An API which gives data on all Nobel laureates.
 
+[![GitHub issues](https://img.shields.io/github/issues/code-reaper08/NAPI?style=for-the-badge)](https://github.com/code-reaper08/NAPI/issues) [![GitHub forks](https://img.shields.io/github/forks/code-reaper08/NAPI?style=for-the-badge)](https://github.com/code-reaper08/NAPI/network) [![GitHub stars](https://img.shields.io/github/stars/code-reaper08/NAPI?style=for-the-badge)](https://github.com/code-reaper08/NAPI/stargazers) [![GitHub license](https://img.shields.io/github/license/code-reaper08/NAPI?style=for-the-badge)](https://github.com/code-reaper08/NAPI/blob/main/LICENSE) ![GitHub repo size](https://img.shields.io/github/repo-size/code-reaper08/NAPI?style=for-the-badge) ![Lines of code](https://img.shields.io/tokei/lines/github/code-reaper08/NAPI?style=for-the-badge) ![GitHub Release Date](https://img.shields.io/github/release-date/code-reaper08/NAPI?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/code-reaper08/NAPI?style=for-the-badge)
+
 This API's source data is taken from public dataset [here](https://github.com/jdorfman/awesome-json-datasets#nobel-prize).
 
 ## What is different here :
