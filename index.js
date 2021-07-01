@@ -62,7 +62,11 @@ app.get("/gender/:GEN", (req, res) => {
 // get all data based on gender and Country
 app.get("/gender/:GEN/:CC", (req,res) => {
   try{
-
+    GENqry = req.params.GEN;
+    CCqry = req.params.CC;
+    values = Object.values(DATA.laureates);
+    const result = alasql("SELECT * FROM ? WHERE gender = ? AND bornCountryCode = ?",[values,GENqry,CCqry]);
+    res.json(result);
   }catch(err){
     res.status(400).json({message : err.message});
     }
