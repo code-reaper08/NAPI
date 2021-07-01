@@ -43,7 +43,7 @@ app.get("/bornat/:CC", (req, res) => {
     // console.log( all_servers_2343262364124 );
     res.status(200).json(result);
   } catch (err) {
-    res.json({ message: err.message });
+    res.status(404).json({ message: err.message });
   }
 });
 
@@ -66,7 +66,7 @@ app.get("/gender/:GEN/:CC", (req,res) => {
     CCqry = req.params.CC;
     values = Object.values(DATA.laureates);
     const result = alasql("SELECT * FROM ? WHERE gender = ? AND bornCountryCode = ?",[values,GENqry,CCqry]);
-    res.json(result);
+    res.status(200).json(result);
   }catch(err){
     res.status(400).json({message : err.message});
     }
