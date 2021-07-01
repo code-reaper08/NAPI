@@ -2,24 +2,6 @@ const alasql = require("alasql");
 const express = require("express");
 const app = express();
 const DATA = require("./DATA.json");
-// const DATA2 = JSON.parse(DATA);
-const records = {
-  15432213213564: {
-    server: "1234756783612",
-    time: "infinite",
-    reason: "not provided",
-  },
-  4567863243123: {
-    server: "2343262364124",
-    time: "infinite",
-    reason: "not provided",
-  },
-  5763542345345: {
-    server: "2343262364124",
-    time: "20",
-    reason: "test",
-  },
-};
 let PORT = process.env.PORT || 3000;
 
 // Home route
@@ -65,38 +47,27 @@ app.get("/bornat/:CC", (req, res) => {
   }
 });
 
-// get all data based on category
-app.get("/category/:CAT", (req, res) => {
+// get all data based on Gender
+app.get("/gender/:GEN", (req, res) => {
   try {
-    // const arr = []
-    const catqry = req.params.CAT;
-    var values = Object.values(DATA.laureates);
-    values.forEach((element) => {
-      const catt = element.prizes[0].category;
-      console.log(catt);
-      catt.forEach((el) => {
-        const categorys = el.category;
-        // if(catqry == categorys){
-        // arr.push(el);
-        // console.log(arr);
-        const result = alasql("SELECT * FROM ? WHERE ? = ?", [
-          values,
-          categorys,
-          catqry,
-        ]);
-        // console.log(result);
-        res.status(200).json(result);
-        return false;
-        // res.json(arr)
-        // }
-        // const result = alasql("SELECT * FROM ? WHERE ? = ?",[values,categorys,catqry]);
-        // console.log(result);
-      });
-    });
+    GENqry = req.params.GEN;
+    values = Object.values(DATA.laureates);
+    const result = alasql("SELECT * FROM ? WHERE gender = ? ",[values,GENqry]);
+    res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
 });
+
+// get all data based on gender and Country
+app.get("/gender/:GEN/:CC", (req,res) => {
+  try{
+
+  }catch(err){
+    res.status(400).json({message : err.message});
+    }
+})
+
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
