@@ -44,22 +44,28 @@ app.get("/bornat/:CC", (req, res) => {
 });
 
 // get all data based on died at country code
-app.get("/diedat/:DCC",(req,res) => {
-  try{
-   const DCCqry = req.params.DCC;
-   var values = Object.values(DATA.laureates);
-   const result = alasql("SELECT * FROM ? WHERE diedCountryCode = ? ",[values,DCCqry]);
-   res.status(200).json(result);
-  }catch(err){
-    res.status(400).json({message : err.message});
+app.get("/diedat/:DCC", (req, res) => {
+  try {
+    const DCCqry = req.params.DCC;
+    var values = Object.values(DATA.laureates);
+    const result = alasql("SELECT * FROM ? WHERE diedCountryCode = ? ", [
+      values,
+      DCCqry,
+    ]);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-})
+});
 // get all data based on Gender
 app.get("/gender/:GEN", (req, res) => {
   try {
     GENqry = req.params.GEN;
     values = Object.values(DATA.laureates);
-    const result = alasql("SELECT * FROM ? WHERE gender = ? ",[values,GENqry]);
+    const result = alasql("SELECT * FROM ? WHERE gender = ? ", [
+      values,
+      GENqry,
+    ]);
     res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -67,30 +73,36 @@ app.get("/gender/:GEN", (req, res) => {
 });
 
 // get all data based on gender and Country
-app.get("/gender/:GEN/:CC", (req,res) => {
-  try{
+app.get("/gender/:GEN/:CC", (req, res) => {
+  try {
     GENqry = req.params.GEN;
     CCqry = req.params.CC;
     values = Object.values(DATA.laureates);
-    const result = alasql("SELECT * FROM ? WHERE gender = ? AND bornCountryCode = ?",[values,GENqry,CCqry]);
+    const result = alasql(
+      "SELECT * FROM ? WHERE gender = ? AND bornCountryCode = ?",
+      [values, GENqry, CCqry]
+    );
     res.status(200).json(result);
-  }catch(err){
-    res.status(400).json({message : err.message});
-    }
-})
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 // get all data based on born cc and died cc
-app.get("/bornat/:BCC/diedat/:DCC",(req,res) => {
-  try{
+app.get("/bornat/:BCC/diedat/:DCC", (req, res) => {
+  try {
     BCCqry = req.params.BCC;
     DCCqry = req.params.DCC;
     values = Object.values(DATA.laureates);
-    const result = alasql("SELECT * FROM ? WHERE bornCountryCode = ? AND diedCountryCode = ?",[values,BCCqry,DCCqry]);
+    const result = alasql(
+      "SELECT * FROM ? WHERE bornCountryCode = ? AND diedCountryCode = ?",
+      [values, BCCqry, DCCqry]
+    );
     res.status(200).json(result);
-  }catch(err){
-    res.status(400).json({message : err.message});
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-})
+});
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);
 });
